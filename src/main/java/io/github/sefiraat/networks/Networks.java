@@ -322,7 +322,7 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
         LibraryManager libraryManager = new BukkitLibraryManager(this);
         libraryManager.addMavenCentral();
 
-        getLogger().info("正在加载 Pinyin");
+        getLogger().info("Carregando Pinyin");
         Library pinyin = Library.builder()
             .groupId("com{}github{}houbb")
             .artifactId("pinyin")
@@ -330,7 +330,7 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
             .build();
         libraryManager.loadLibrary(pinyin);
 
-        getLogger().info("正在加载 opencc4j");
+        getLogger().info("Carregando opencc4j");
         Library opencc4j = Library.builder()
             .groupId("com{}github{}houbb")
             .artifactId("opencc4j")

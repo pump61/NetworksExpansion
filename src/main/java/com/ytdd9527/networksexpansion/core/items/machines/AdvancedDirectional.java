@@ -363,12 +363,12 @@ public abstract class AdvancedDirectional extends NetworkDirectional {
 
                 if (getCargoNumberSlot() != -1) {
                     blockMenu.addMenuClickHandler(getCargoNumberSlot(), (player, i, itemStack, clickAction) -> {
-                        player.sendMessage(ChatColors.color("&e输入数量"));
+                        player.sendMessage(ChatColors.color("&eDigite a quantidade"));
                         ChatUtils.awaitInput(player, input -> {
                             try {
                                 int value = Calculator.calculate(input).intValue();
                                 if (value <= 0 || value > getMaxLimit()) {
-                                    player.sendMessage("请输入 1 ~ " + getMaxLimit() + " 之间的正整数");
+                                    player.sendMessage("Digite um número inteiro positivo entre 1 e " + getMaxLimit());
                                     BlockMenu menu = StorageCacheUtils.getMenu(location);
                                     if (menu != null) menu.open(player);
                                     return;

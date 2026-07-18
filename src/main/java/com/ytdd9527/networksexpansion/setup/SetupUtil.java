@@ -241,19 +241,6 @@ public class SetupUtil {
             ExpansionItems.AUTHOR_YITOUDAIDAI.registerThis(),
             ExpansionItems.AUTHOR_TINALNESS.registerThis());
 
-        /* announce */
-        ExpansionItemsMenus.SUB_MENU_ANNOUNCE.addTo(
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_1.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_2.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_3.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_4.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_5.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_6.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_7.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_8.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_9.registerThis(),
-            ExpansionItems.NTW_EXPANSION_ANNOUNCE_10.registerThis());
-
         /* Deprecated */
         ExpansionItems.BETTER_GRABBER.registerThis(); // Not add to menu because it's deprecated, shit compatibility
     }
@@ -297,10 +284,9 @@ public class SetupUtil {
 
         ExpansionItemsMenus.MAIN_ITEM_GROUP.addTo(
             ExpansionItemsMenus.MAIN_MENU_TROPHY,
-            ExpansionItemsMenus.SUB_MENU_AUTHOR,
-            ExpansionItemsMenus.SUB_MENU_ANNOUNCE);
+            ExpansionItemsMenus.SUB_MENU_AUTHOR);
         ExpansionItemsMenus.MAIN_MENU_TROPHY.addFrom(
-            ExpansionItemsMenus.SUB_MENU_AUTHOR, ExpansionItemsMenus.SUB_MENU_ANNOUNCE);
+            ExpansionItemsMenus.SUB_MENU_AUTHOR);
 
         ExpansionItemsMenus.MAIN_ITEM_GROUP.addTo(
             ExpansionItemsMenus.SUB_MENU_DEPRECATED);
