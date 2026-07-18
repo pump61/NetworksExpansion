@@ -306,11 +306,17 @@ public abstract class AdvancedDirectional extends NetworkDirectional {
             public void newInstance(@NotNull BlockMenu blockMenu, @NotNull Block b) {
                 final BlockFace direction;
                 final Location location = blockMenu.getLocation();
-                final String string = StorageCacheUtils.getData(location, DIRECTION);
-                final String rawLimit = StorageCacheUtils.getData(location, LIMIT_KEY);
-                final String rawMode = StorageCacheUtils.getData(location, TRANSPORT_MODE_KEY);
+                // The block's data container can still be loading asynchronously at this point,
+                // in which case StorageCacheUtils.getData() would throw instead of returning null.
+                final var container = StorageCacheUtils.getDataContainer(location);
+                final boolean dataLoaded = container != null && container.isDataLoaded();
+                final String string = dataLoaded ? StorageCacheUtils.getData(location, DIRECTION) : null;
+                final String rawLimit = dataLoaded ? StorageCacheUtils.getData(location, LIMIT_KEY) : null;
+                final String rawMode = dataLoaded ? StorageCacheUtils.getData(location, TRANSPORT_MODE_KEY) : null;
 
-                if (string == null) {
+                if (!dataLoaded) {
+                    direction = BlockFace.SELF;
+                } else if (string == null) {
                     // This likely means a block was placed before I made it directional
                     direction = BlockFace.SELF;
                     StorageCacheUtils.setData(location, DIRECTION, BlockFace.SELF.name());
@@ -328,7 +334,9 @@ public abstract class AdvancedDirectional extends NetworkDirectional {
                 NETWORK_LIMIT_QUANTITY_MAP.put(location.clone(), limit);
 
                 TransportMode mode;
-                if (rawMode == null) {
+                if (!dataLoaded) {
+                    mode = DEFAULT_TRANSPORT_MODE;
+                } else if (rawMode == null) {
                     mode = DEFAULT_TRANSPORT_MODE;
                     StorageCacheUtils.setData(location, TRANSPORT_MODE_KEY, String.valueOf(mode));
                 } else {
