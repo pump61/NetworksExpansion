@@ -31,8 +31,15 @@ public class QuantumCache extends ItemStackCache {
         return limit;
     }
 
-    @Getter
-    private long amount;
+    // volatile + synchronized mutators: insertAll/extract (player-triggered) and the network's
+    // own automatic routing (grid/monitor pushing or pulling items) can both touch the same
+    // QuantumCache concurrently. Without this, a lost-update race between the two could let
+    // the counted amount drift from the items actually removed/given, which is a duplication risk.
+    private volatile long amount;
+
+    public synchronized long getAmount() {
+        return amount;
+    }
 
     public int getAmountInt() {
         return amount > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) amount;
@@ -74,7 +81,7 @@ public class QuantumCache extends ItemStackCache {
         return this.storedItemMeta;
     }
 
-    public void setAmount(int amount) {
+    public synchronized void setAmount(int amount) {
         if (amount < -2_000_000_000) {
             this.amount = -amount; // just for data fix in some case, normally nothing will reach -2B
         } else {
@@ -82,7 +89,7 @@ public class QuantumCache extends ItemStackCache {
         }
     }
 
-    public void setAmount(long amount) {
+    public synchronized void setAmount(long amount) {
         if (amount < -2_000_000_000) {
             this.amount = -amount; // just for data fix in some case, normally nothing will reach -2B
         } else {
@@ -94,7 +101,7 @@ public class QuantumCache extends ItemStackCache {
         return this.supportsCustomMaxAmount;
     }
 
-    public int increaseAmount(int amount) {
+    public synchronized int increaseAmount(int amount) {
         long total = this.amount + (long) amount;
         if (total > this.limit) {
             this.amount = this.limit;
@@ -107,12 +114,12 @@ public class QuantumCache extends ItemStackCache {
         return 0;
     }
 
-    public void reduceAmount(int amount) {
+    public synchronized void reduceAmount(int amount) {
         this.amount = this.amount - amount;
     }
 
     @Nullable
-    public ItemStack withdrawItem(int amount) {
+    public synchronized ItemStack withdrawItem(int amount) {
         if (this.getItemStack() == null) {
             return null;
         }
