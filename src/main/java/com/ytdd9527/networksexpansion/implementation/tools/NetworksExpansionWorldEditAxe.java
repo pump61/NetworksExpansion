@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-@Deprecated
 public class NetworksExpansionWorldEditAxe extends SpecialSlimefunItem {
 
     public NetworksExpansionWorldEditAxe(@NotNull ItemGroup itemGroup, @NotNull SlimefunItemStack item) {
