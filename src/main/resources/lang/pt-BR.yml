@@ -3444,7 +3444,7 @@ items:
       - "pra ver a quantidade de nós na rede"
 
   NTW_REMOTE:
-    name: "Acessador Remoto de Rede"
+    name: "Dispositivo de Acesso de Rede"
     lore:
       - "Abre remotamente a grade vinculada"
       - "É preciso que o chunk da grade esteja carregado"
@@ -3454,7 +3454,7 @@ items:
       - "<click_info>Alcance: <passive>150 blocos"
 
   NTW_REMOTE_EMPOWERED:
-    name: "Acessador Remoto de Rede Energizado"
+    name: "Dispositivo de Acesso de Rede Energizado"
     lore:
       - "Abre remotamente a grade vinculada"
       - "É preciso que o chunk da grade esteja carregado"
@@ -3464,7 +3464,7 @@ items:
       - "<click_info>Alcance: <passive>500 blocos"
 
   NTW_REMOTE_PRISTINE:
-    name: "Acessador Remoto de Rede Ancestral"
+    name: "Dispositivo de Acesso de Rede Ancestral"
     lore:
       - "Abre remotamente a grade vinculada"
       - "É preciso que o chunk da grade esteja carregado"
@@ -3474,7 +3474,7 @@ items:
       - "<click_info>Alcance: <passive>Ilimitado (só no mesmo mundo)"
 
   NTW_REMOTE_ULTIMATE:
-    name: "Acessador Remoto de Rede Definitivo"
+    name: "Dispositivo de Acesso de Rede Definitivo"
     lore:
       - "Abre remotamente a grade vinculada"
       - "É preciso que o chunk da grade esteja carregado"
