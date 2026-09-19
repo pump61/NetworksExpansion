@@ -9,7 +9,9 @@ import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import com.xzavier0722.mc.plugin.slimefun4.storage.util.StorageCacheUtils;
 import com.ytdd9527.networksexpansion.core.items.SpecialSlimefunItem;
 import com.ytdd9527.networksexpansion.utils.itemstacks.ItemStackUtil;
+import io.github.sefiraat.networks.NetworkStorage;
 import io.github.sefiraat.networks.Networks;
+import io.github.sefiraat.networks.network.NodeDefinition;
 import io.github.sefiraat.networks.network.stackcaches.ItemStackCache;
 import io.github.sefiraat.networks.network.stackcaches.QuantumCache;
 import io.github.sefiraat.networks.utils.Keys;
@@ -40,6 +42,7 @@ import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -178,7 +181,7 @@ public class NetworkQuantumStorage extends SpecialSlimefunItem implements Distin
 
     @ParametersAreNonnullByDefault
     @Nullable
-    public static ItemStack getItemStack(@NotNull QuantumCache cache, @NotNull BlockMenu blockMenu, int amount) {
+    public static synchronized ItemStack getItemStack(@NotNull QuantumCache cache, @NotNull BlockMenu blockMenu, int amount) {
         if (cache.getAmountLong() < amount) {
             // Storage has no content or not enough, mix and match!
             ItemStack output = blockMenu.getItemInSlot(OUTPUT_SLOT);
@@ -506,13 +509,17 @@ public class NetworkQuantumStorage extends SpecialSlimefunItem implements Distin
         };
     }
 
-    public void insertAll(@NotNull Player p, @NotNull BlockMenu menu, @NotNull Block b) {
+    public synchronized void insertAll(@NotNull Player p, @NotNull BlockMenu menu, @NotNull Block b) {
         PlayerInventory inv = p.getInventory();
         QuantumCache cache = CACHES.get(menu.getLocation());
         if (cache == null) return;
 
         ItemStack storedItem = cache.getItemStack();
         if (storedItem == null) return;
+
+//        if (dupeDetect(b, p)) {
+//            return;
+//        }
 
         long capacity = cache.getLimitLong();
 
@@ -542,7 +549,7 @@ public class NetworkQuantumStorage extends SpecialSlimefunItem implements Distin
         updateDisplayItem(menu, cache);
     }
 
-    public void extract(@NotNull Player p, @NotNull BlockMenu menu, @NotNull Block b, @NotNull ClickAction action) {
+    public synchronized void extract(@NotNull Player p, @NotNull BlockMenu menu, @NotNull Block b, @NotNull ClickAction action) {
         QuantumCache cache = CACHES.get(menu.getLocation());
         if (cache == null) return;
 
@@ -550,6 +557,10 @@ public class NetworkQuantumStorage extends SpecialSlimefunItem implements Distin
         if (storedItem == null) {
             return;
         }
+
+//        if (dupeDetect(b, p)) {
+//            return;
+//        }
 
         long stored = cache.getAmountLong();
         if (action.isShiftClicked() && action.isRightClicked()) {
@@ -593,10 +604,7 @@ public class NetworkQuantumStorage extends SpecialSlimefunItem implements Distin
     private @NotNull QuantumCache addCache(@NotNull BlockMenu blockMenu) {
         final Location location = blockMenu.getLocation();
         SlimefunBlockData blockData = StorageCacheUtils.getBlock(location);
-        // The block's data container can be null (not yet cached) or still loading
-        // asynchronously at this point, in which case getData() would throw instead
-        // of returning null.
-        if (blockData == null || !blockData.isDataLoaded()) {
+        if (blockData == null) {
             return new QuantumCache(null, 0, this.maxAmount, false, this.supportsCustomMaxAmount);
         }
         final String amountString = blockData.getData(BS_AMOUNT);
@@ -718,5 +726,26 @@ public class NetworkQuantumStorage extends SpecialSlimefunItem implements Distin
     // Keep here for SlimeAEPlugin used it, don't delete it
     public static boolean isBlacklisted(@NotNull ItemStack itemStack) {
         return StackUtils.isBlacklisted(itemStack);
+    }
+
+    // see https://b23.tv/BV1ZMXuBpEAz
+    private static boolean dupeDetect(Block storage, Player player) {
+        for (BlockFace face : NetworkDirectional.VALID_FACES) {
+            NodeDefinition definition = NetworkStorage.getNode(storage.getRelative(face).getLocation());
+            if (definition != null && definition.getNode() != null) {
+                if (definition.getNode().getRoot().getCellsSize() != 0) {
+                    Networks.getInstance()
+                        .getLogger()
+                        .warning(String.format(
+                            Lang.getString("messages.unsupported-operation.quantum_storage.may_duping"),
+                            player.getName(),
+                            storage.getLocation()
+                        ));
+                    player.sendMessage(Lang.getString("messages.unsupported-operation.quantum_storage.dangerous_operation"));
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

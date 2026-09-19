@@ -6,7 +6,7 @@ authors:
 description: No idea yet
 main: io.github.sefiraat.networks.Networks
 website: https://github.com/ytdd9527/NetworksExpansion
-version: ${project.version}
+version: ${version}
 api-version: 1.20
 depend:
   - Slimefun
@@ -66,9 +66,6 @@ permissions:
     default: op
   networks.commands.getstorageitem:
     description: Allows you to use the /networks getstorageitem command
-    default: op
-  networks.commands.worldedit.*: # Deprecated
-    description: Allows you to use all Networks WorldEdit commands
     default: op
   networks.commands.map:
     description: Allows you to use the /networks map command

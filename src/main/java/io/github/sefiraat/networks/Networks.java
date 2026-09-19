@@ -115,9 +115,11 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
     public void onEnable() {
         instance = this;
 
+        loadLibraries();
+
         getLogger().info("Loading language");
         this.configManager = new ConfigManager();
-        localizationService = new LocalizationService(this);
+        this.localizationService = new LocalizationService(this);
         String language = configManager.getLanguage();
         try {
             localizationService.addLanguage(language);
@@ -126,7 +128,7 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
             getLogger().log(Level.WARNING, "Failed to load language " + language, e);
         }
 
-        localizationService.addLanguage(DEFAULT_LANGUAGE);
+        localizationService.addDefaultLanguage(DEFAULT_LANGUAGE);
         getLogger().info("Default language " + DEFAULT_LANGUAGE + " loaded successfully.");
 
         superHead();
@@ -140,7 +142,7 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
 
         this.supportedPluginManager = new SupportedPluginManager();
 
-        // Try connect database
+        // Try to connect database
         getLogger().info(getLocalizationService().getString("messages.startup.connecting-database"));
         try {
             dataSource = new DataSource();
@@ -186,7 +188,7 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
                 1,
                 Slimefun.getTickerTask().getTickRate());
 
-        // Fix dupe bug which break the network controller data without player interaction
+        // Fix dupe bug where player breaks the network controller data without player interaction
         Bukkit.getScheduler()
             .runTaskTimer(
                 this,
@@ -337,6 +339,22 @@ public class Networks extends JavaPlugin implements SlimefunAddon {
             .version("1.14.0")
             .build();
         libraryManager.loadLibrary(opencc4j);
+
+        getLogger().info("正在加载 heaven");
+        Library heaven = Library.builder()
+            .groupId("com{}github{}houbb")
+            .artifactId("heaven")
+            .version("0.13.0")
+            .build();
+        libraryManager.loadLibrary(heaven);
+
+        getLogger().info("正在加载 nlp-common");
+        Library nlp = Library.builder()
+            .groupId("com{}github{}houbb")
+            .artifactId("nlp-common")
+            .version("0.0.5")
+            .build();
+        libraryManager.loadLibrary(nlp);
     }
 
     public MinecraftVersion getMCVersion() {

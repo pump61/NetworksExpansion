@@ -76,6 +76,10 @@ messages:
     no_menu: "Menu não encontrado"
     unsupported_blueprint: "Planta não suportada"
     broken_blueprint: "Planta corrompida"
+    not_enough_items: "Itens insuficientes"
+    no_location_found: "Localização não encontrada"
+    no_enough_items: "Itens insuficientes"
+    cannot_access_code: "Não foi possível acessar o código"
   blueprint:
     title: "<click_info>Receita definida"
     empty: "<passive>Vazio"
@@ -177,19 +181,6 @@ messages:
       getstorageitem:
         - "&6/networks getStorageItem <slot> - Obtém o item do slot especificado do armazenamento de carga mirado."
         - "&6ex: /networks getStorageItem 0"
-      worldedit:
-        - "&6/networks worldedit <subComando> - Funções do WorldEdit do Slimefun."
-        - "&6/networks worldedit pos1 - Seleciona a primeira posição"
-        - "&6/networks worldedit pos2 - Seleciona a segunda posição"
-        - "&6/networks worldedit paste <sfid> <handler> <force> - Cola um bloco do Slimefun"
-        - "&6/networks worldedit clear <callHandler> <skipVanilla> - Remove um bloco do Slimefun"
-        - "&6/networks worldedit blockMenu setSlot <slot> - Define o slot correspondente do menu do bloco Slimefun na área selecionada como o item na mão"
-        - "&6/networks worldedit blockInfo add <key> <value> - Adiciona informação ao bloco do Slimefun"
-        - "&6/networks worldedit blockInfo remove <value> - Remove informação do bloco do Slimefun"
-        - "&6/networks worldedit blockInfo set <key> <value> - Define informação do bloco do Slimefun"
-        - "&6/networks worldedit clone - Copia a área selecionada pra sua posição"
-        - "&6/networks worldedit clearPos - Limpa a posição selecionada"
-        - "&6/networks worldedit showAreaOutline - Mostra o contorno da área selecionada"
       updateitem:
         - "&6/networks updateItem - Atualiza o item na mão."
         - "&6ex: /networks updateItem"
@@ -198,26 +189,6 @@ messages:
         - "&6ex: /networks viewLog"
       unknown-command:
         - "<error>Comando desconhecido! Use /networks help pra ver a ajuda."
-    worldedit:
-      must-select-range: "&cSelecione uma área primeiro!"
-      must-select-same-world: "&cSelecione duas posições no mesmo mundo!"
-      clearing-area: "&aLimpando blocos de %s até %s"
-      clear-done: "&aLimpeza de %s blocos concluída em %s ms"
-      set-slot: "&aDefinindo slot %s como %s"
-      set-slot-done: "&aSlot %s definido como %s em %s ms"
-      pasting-block: "&aColando blocos de %s até %s"
-      paste-done: "&aColagem de %s blocos concluída em %s ms"
-      setting-info: "&aDefinindo %s como %s"
-      set-info-done: "&a%s definido como %s em %s ms"
-      removing-info: "&aRemovendo %s"
-      remove-info-done: "&aRemoção de %s concluída em %s ms"
-      invalid-slimefun-block-id: "&cEsse não é um ID de bloco do Slimefun válido!"
-      not-a-placeable-block: "&cBloco do Slimefun não colocável!"
-      set-pos1: "&aPosição 1 definida como %s"
-      set-pos2: "&aPosição 2 definida como %s"
-      set-pos1-with-blocks: "&aPosição 1 definida como %s (%s blocos)"
-      set-pos2-with-blocks: "&aPosição 2 definida como %s (%s blocos)"
-      invalid-slot: "&cO número do slot precisa estar entre 0 e 53!"
   normal-operation:
     common:
       page: "Página"
@@ -303,6 +274,8 @@ messages:
         - "<click_info>Clique esquerdo: <passive>Abrir tela de detalhes"
       item-flow-viewer-sub-click-behavior:
         - "<click_info>Clique esquerdo: <passive>Destacar máquina"
+      linker-grid-click-behavior:
+        - "<click_info>Clique esquerdo: <passive>Obter Hiperlink/Singularidade de Emaranhamento Quântico armazenado"
     comprehensive:
       auto_set_face: "Definir direção automaticamente"
   completed-operation:
@@ -384,6 +357,8 @@ messages:
       success: "&aCriação bem-sucedida"
     storage_card_converter:
       success: "&aConversão bem-sucedida"
+    viewer:
+      linked-stack: "&aO histórico de links emaranhados foi atualizado!"
   unsupported-operation:
     incompatible-jeg-version: "<error>A versão do plugin dependente JustEnoughGuide está desatualizada, atualize pra build mais recente"
     storage_card_converter:
@@ -471,6 +446,7 @@ messages:
       invalid_custom_max_amount: "<passive>[<gold>Expansão de Rede<passive>] <error>O armazenamento quântico avançado de rede precisa estar entre: 1 e 140737488355328"
       invalid_custom_max_amount_new: "<passive>[<gold>Expansão de Rede<passive>] <error>O armazenamento quântico avançado de rede precisa estar entre: 1 e 140737488355328"
       may_duping: "Player \"%s\" attempted to use quantum storage to dupe at %s. (see https://b23.tv/BV1ZMXuBpEAz)"
+      dangerous_operation: "<error>Operação perigosa! Não é permitido conectar o Armazenamento Quântico e a Unidade de Rede ao mesmo tempo!"
     configurator:
       not_a_copyable_block: "<error>Esse bloco não tem direção especificada"
       not_a_pasteable_block: "<error>Você precisa mirar num bloco de rede com seleção de direção"
@@ -493,6 +469,12 @@ messages:
     crafter_manager:
       different_type_1: "&cA planta guardada não corresponde ao tipo do fabricador"
       different_type_2: "&cGuardado: %s; &aEsperado: %s"
+    viewer:
+      location-not-found: "&cNão foi possível encontrar a localização deste item!"
+      link-stack-not-found: "&cHiperlinks/Singularidades de Emaranhamento Quântico insuficientes!"
+      no-permission: "&cVocê não tem permissão para acessar o bloco de armazenamento correspondente!"
+      cannot-access-code: "&cNão foi possível acessar o código, falha na configuração!"
+      not-initialized: "&cNão foi possível inicializar a reflexão do LogiTech, entre em contato com o desenvolvedor para obter ajuda!"
   super-head:
     - "███╗   ██╗███████╗████████╗██╗    ██╗ ██████╗ ██████╗ ██╗  ██╗███████╗   "
     - "████╗  ██║██╔════╝╚══██╔══╝██║    ██║██╔═══██╗██╔══██╗██║ ██╔╝██╔════╝   "
@@ -792,6 +774,7 @@ icons:
     void: "Modo esvaziar"
     specified_quantity: "Modo quantidade específica"
     p2p: "Modo simétrico forte"
+    p2p_specified_quantity: "Modo simétrico forte com quantidade específica"
   mechanism:
     transfers:
       data_title: "&a⇩Dados de transferência⇩"
@@ -1124,6 +1107,14 @@ icons:
       lore:
         - "Feito na Bancada Quântica"
 
+  linker-type-hyper-link:
+    name: "&6Usar link: &dHiperlink"
+    lore:
+      - "&aClique para mudar o uso do link para &dSingularidade de Emaranhamento Quântico"
+  linker-type-quantum-link:
+    name: "&6Usar link: &dSingularidade de Emaranhamento Quântico"
+    lore:
+      - "&aClique para mudar o uso do link para &dHiperlink"
 items:
   # DO NOT CHANGE OR DELETE THESE ANNOUNCEMENTS
 
@@ -1132,15 +1123,7 @@ items:
     lore:
       - "Cria diversos materiais e máquinas da Expansão de Rede"
 
-  NTW_EXPANSION_WORLD_EDIT_AXE:
-    name: "WorldEdit do Slimefun de Rede"
-    lore:
-      - "Somente administradores podem usar"
-      - "Clique esquerdo seleciona a primeira posição"
-      - "Clique direito seleciona a segunda posição"
-      - "&cEsse item está obsoleto"
-      - "&cUse o item WorldEdit do Slimefun do SFWorldEdit"
-
+  NTW_EXPANSION_WORLD_EDIT_AXE: {}
   NTW_EXPANSION_INFO_TOOL:
     name: "Ferramenta de Informação de Rede"
     lore:
@@ -1424,7 +1407,6 @@ items:
       - "&aQuantidade de transporte ajustável"
       - "&eDiferente do Transportador em Cadeia do Chaos Crafting, essa máquina &csó tem a função de empurrar e capturar continuamente"
       - "&ce não transferir itens continuamente!"
-  
   NTW_EXPANSION_ADVANCED_LINE_TRANSFER_PLUS_PUSHER:
     name: "Transporte em Cadeia Avançado Plus [Empurrar]"
     lore:
@@ -1448,7 +1430,6 @@ items:
       - "&aQuantidade de transporte ajustável"
       - "&eDiferente do Transportador em Cadeia do Chaos Crafting, essa máquina &csó tem a função de empurrar continuamente"
       - "&ce não transferir itens continuamente!"
-  
   NTW_EXPANSION_ADVANCED_LINE_TRANSFER_PLUS_BEST_PUSHER:
     name: "Transporte em Cadeia Avançado Plus [Empurrar V3]"
     lore:
@@ -2619,11 +2600,7 @@ items:
     lore:
       - "Desenvolvedor do NetworksExpansion"
 
-  NTW_EXPANSION_AUTHOR_TINALNESS:
-    name: "tinalness"
-    lore:
-      - "Desenvolvedor do NetworksExpansion"
-
+  NTW_EXPANSION_AUTHOR_TINALNESS: {}
   NTW_EXPANSION_CARGO_NODE_QUICK_TOOL:
     name: "Ferramenta de Configuração Rápida de Nó de Carga"
     lore:
@@ -3684,6 +3661,71 @@ items:
     lore:
       - ""
 
+  NTW_EXPANSION_ANNOUNCE_01:
+    name: "<color_random_string>Definições"
+    lore:
+      - "<warning> 1) \"Declaração\" refere-se a todas as declarações contidas aqui."
+      - "<warning> 2) \"Networks\" é um addon do Slimefun, e não uma rede no sentido de internet, Internet das Coisas ou qualquer outra rede convencional."
+      - "<warning> 3) \"NetworksExpansion\" (doravante \"Networks Expansion\", \"este addon\" ou \"este projeto\") é um addon do Slimefun desenvolvido pela equipe do NetworksExpansion sobre a base do Networks, em total conformidade com a licença GPLv3, com adições, remoções e modificações adequadas, baseado no Paper 1.20.1 e no Slimefun em chinês, compatível com o Paper 1.20.1 e versões superiores."
+      - "<warning> 4) Os desenvolvedores do NetworksExpansion (doravante \"equipe de desenvolvimento do NetworksExpansion\" ou \"criadores do NetworksExpansion\") são o grupo que desenvolve o NetworksExpansion e não pertencem a nenhuma empresa ou organização."
+  NTW_EXPANSION_ANNOUNCE_02:
+    name: "<color_random_string>Declaração sobre a obra NetworksExpansion"
+    lore:
+      - "<warning> 1) O NetworksExpansion é totalmente gratuito, compartilhado e de código aberto no GitHub, para estudo e uso de apoiadores, mantenedores e criadores."
+      - "<warning> 2) A licença GPLv3 é a licença de código aberto do NetworksExpansion; qualquer pessoa pode usar, modificar e distribuir livremente, mas toda modificação ou distribuição deve respeitar a licença GPLv3."
+      - "<warning> 3) \"NetworksExpansion\" é apenas o título deste arquivo, sem qualquer ambiguidade ou envolvimento com lucro."
+      - "<warning> 4) Os desenvolvedores do NetworksExpansion atuam apenas como criadores deste addon, não oferecem nenhum suporte comercial e também não o mantêm mais ativamente. Além disso, nunca participam de nenhuma atividade de operação, direta ou indireta, de qualquer servidor."
+      - "<warning> 5) É estritamente proibido usar os plugins acima e este addon para divulgar qualquer forma de informação negativa ou violenta; é proibido usar os arquivos acima para atividades ilegais ou que violem direitos; é proibido qualquer conteúdo político ou vulgar."
+      - "<warning> 6) É estritamente proibido revender, incluindo, entre outros, transações disfarçadas, ou adulterar e usar os arquivos acima de forma privada para qualquer fim lucrativo."
+      - "<warning> 7) Condenamos veementemente os itens proibidos acima e incentivamos o público a se fiscalizar mutuamente e denunciar ativamente infrações e atos ilegais."
+      - "<warning> 8) Quaisquer consequências causadas pelo uso inadequado por você ou seu grupo são de sua inteira responsabilidade; é proibido, de qualquer forma, transferir a responsabilidade aos mantenedores e criadores dos plugins e arquivos de configuração acima."
+      - "<warning> 9) O infrator deve, conforme o caso, arcar com responsabilidades civis como cessar a violação, eliminar os efeitos, pedir desculpas e indenizar perdas; se houver dano ao interesse público, a autoridade administrativa de direitos autorais pode ordenar a cessação da violação, confiscar os ganhos ilícitos, confiscar e destruir as cópias infratoras e aplicar multa; em casos graves que constituam crime, a responsabilidade criminal será apurada conforme a lei."
+      - "<warning> 10) Quando os desenvolvedores do NetworksExpansion não perseguem a violação de um infrator, isso não significa que a aprovam, nem que o infrator esteja isento de qualquer responsabilidade."
+      - "<warning> Por favor, cumpra rigorosamente as declarações acima."
+  NTW_EXPANSION_ANNOUNCE_03:
+    name: "<color_random_string>Declaração dos autores do NetworksExpansion"
+    lore:
+      - "<passive> Este addon foi escrito por Sefiraat, traduzido para o chinês por ybw0014, e ampliado, alterado e mantido depois por yitoudaidai e balugaq."
+      - "<passive> Agradecimento às máquinas do LogiTech pelos hashes das cabeças dos autores."
+      - "<passive> Agradecimento a todos os donos de servidor que confiaram e instalaram o NetworksExpansion."
+      - "<passive> Este addon foi inspirado pela comunidade de jogadores."
+      - "<passive> Agradecimento especial às sugestões de jogadores como Utoboy, TouRuya, haiman233 e matl114."
+      - "<passive> Agradecimento aos testadores Utoboy, TouRuya, haiman233, yitoudaidai, tinalness, matl114, lengshang e outros."
+  NTW_EXPANSION_ANNOUNCE_04:
+    name: "<color_random_string>Links relacionados ao NetworksExpansion"
+    lore:
+      - "<passive> Site de builds do NetworksExpansion: <click_info>https://builds.guizhanss.com/ytdd9527/NetworksExpansion/master/builds"
+      - "<passive> Repositório GitHub da versão estável: <click_info>https://github.com/ytdd9527/NetworksExpansion"
+      - "<passive> Issues do GitHub da versão estável: <click_info>https://github.com/ytdd9527/NetworksExpansion/issues"
+      - "<passive> Pull Requests do GitHub da versão estável: <click_info>https://github.com/ytdd9527/NetworksExpansion/pulls"
+      - "<passive> Repositório GitHub da versão de desenvolvimento: <click_info>https://github.com/balugaq/NetworksExpansion"
+      - "<warning> A versão de desenvolvimento não aceita Issues no GitHub"
+      - "<warning> A versão de desenvolvimento não aceita Pull Requests no GitHub"
+      - "<passive> Página do autor no GitHub: <click_info>https://github.com/ytdd9527"
+      - "<passive> Página do autor no GitHub: <click_info>https://github.com/balugaq"
+  NTW_EXPANSION_ANNOUNCE_05:
+    name: "<color_random_string>Links relacionados ao NetworksExpansion"
+    lore:
+      - "<passive> Desenvolvedor(es): ytdd9527, balugaq"
+      - "<passive> Página do desenvolvedor no GitHub: <click_info>https://github.com/ytdd9527"
+      - "<passive> Página do desenvolvedor no GitHub: <click_info>https://github.com/balugaq"
+      - "<passive> Download da versão estável: https://builds.guizhanss.com/ytdd9527/NetworksExpansion/master/builds"
+      - "<passive> Download da versão de desenvolvimento: https://github.com/balugaq/NetworksExpansion"
+      - "<passive> Obrigado aos jogadores que deram sugestões para o desenvolvimento do NetworksExpansion: Utoboy, TouRuya, haiman233, yitoudaidai, tinalness, matl114 e outros!"
+  NTW_EXPANSION_AUTHOR_BALUGAQ:
+    name: "balugaq"
+    lore:
+      - "Desenvolvedor do NetworksExpansion"
+  NTW_EXPANSION_LINKER_GRID:
+    name: "Grade de Link Lógico"
+    lore:
+      - "&eObtenha facilmente Hiperlinks/Singularidades de Emaranhamento Quântico"
+      - "Formas de ordenação: "
+      - "&eAZ&7: &eordenar alfabeticamente"
+      - "&eQuantidade&7: &eordenar por quantidade de itens"
+      - "&eQuantidade decrescente&7: &eordenar por quantidade de itens (decrescente)"
+      - "&eAddon&7: &eordenar por addon de origem (alfabético)"
+      - "Suporta busca por pinyin"
 displays:
   quantum_storage:
     void_excess: "<click_info>Esvaziar entrada ao encher: <passive>%s"
@@ -3723,6 +3765,7 @@ groups:
       main_menu_trophy: "<color_random_string>Créditos"
       sub_menu_author: "<color_random_string>Créditos - Autores"
       sub_menu_deprecated: "<color_random_string>Itens Obsoletos"
+      sub_menu_announce: "<color_random_string>Contribuição - Declarações"
 theme:
   gold: ""
   white: ""
