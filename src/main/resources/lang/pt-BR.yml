@@ -1117,6 +1117,53 @@ icons:
       - "&aClique para mudar o uso do link para &dHiperlink"
 items:
   # DO NOT CHANGE OR DELETE THESE ANNOUNCEMENTS
+  NTW_EXPANSION_ANNOUNCEMENT_01:
+    name: "<color_random_string>Definições"
+    lore:
+      - "<warning> 1) \"Declaração\" se refere a todas as declarações deste menu."
+      - "<warning> 2) Networks é um addon do Slimefun, e não uma rede no sentido de internet ou similares."
+      - "<warning> 3) NetworksExpansion (\"Expansão de Rede\", \"este addon\" ou \"este projeto\") é um addon do Slimefun feito pela equipe do NetworksExpansion em cima do Networks, seguindo a licença GPLv3."
+      - "<warning> 4) Os desenvolvedores do NetworksExpansion são um grupo independente, não pertencem a nenhuma empresa ou organização."
+  NTW_EXPANSION_ANNOUNCEMENT_02:
+    name: "<color_random_string>Declaração da Obra"
+    lore:
+      - "<warning> Leia as Definições antes desta declaração."
+      - "<warning> 1) O NetworksExpansion é gratuito e de código aberto no GitHub, para estudo e uso de todos."
+      - "<warning> 2) A licença é GPLv3: qualquer um pode usar, modificar e distribuir, desde que siga a GPLv3."
+      - "<warning> 3) Os desenvolvedores não oferecem suporte comercial e não participam da gestão de nenhum servidor."
+      - "<warning> 4) É proibido usar o addon para conteúdo negativo, violento, ilegal, político ou impróprio."
+      - "<warning> 5) É proibido revender o addon ou usá-lo, modificado ou não, para qualquer fim lucrativo."
+      - "<warning> 6) As consequências do mau uso são de responsabilidade de quem usou, não dos desenvolvedores."
+  NTW_EXPANSION_ANNOUNCEMENT_03:
+    name: "<color_random_string>Declaração dos Autores"
+    lore:
+      - "<warning> Leia a Declaração da Obra antes desta."
+      - "<warning> 1) Os desenvolvedores seguem as leis e as regras da comunidade e são contra o ódio na internet."
+      - "<warning> 2) Ofensas ou ataques contra os desenvolvedores serão tratados conforme a lei."
+      - "<warning> 3) Esta declaração representa só a equipe do NetworksExpansion, não jogadores, servidores ou outros grupos."
+      - "<passive> Addon criado por Sefiraat, traduzido para o chinês por ybw0014, e mantido por yitoudaidai e tinalness."
+      - "<passive> Obrigado a todos os donos de servidor que confiaram e instalaram o NetworksExpansion."
+      - "<passive> Obrigado aos jogadores e testadores: Utoboy, TouRuya, haiman233, matl114, lengshang e outros."
+  NTW_EXPANSION_ANNOUNCEMENT_04:
+    name: "<color_random_string>Links Relacionados"
+    lore:
+      - "<warning> Leia a Declaração dos Autores antes desta."
+      - "<passive> Links oficiais do NetworksExpansion:"
+      - "<passive> Builds: <click_info>https://builds.guizhanss.com/ytdd9527/NetworksExpansion/master/builds"
+      - "<passive> GitHub (estável): <click_info>https://github.com/ytdd9527/NetworksExpansion"
+      - "<passive> Issues (estável): <click_info>https://github.com/ytdd9527/NetworksExpansion/issues"
+      - "<passive> GitHub (desenvolvimento): <click_info>https://github.com/balugaq/NetworksExpansion"
+      - "<warning> A versão de desenvolvimento não aceita Issues nem PRs."
+  NTW_EXPANSION_ANNOUNCEMENT_05:
+    name: "<color_random_string>Observações Finais"
+    lore:
+      - "<warning> Leia os Links Relacionados antes desta."
+      - "<warning> 1) Os desenvolvedores não são obrigados a manter o addon; reporte erros no GitHub (versão estável)."
+      - "<passive> 2) Não há garantia de correção rápida, mas eles farão o possível."
+      - "<passive> 3) Ao falar com os desenvolvedores, seja educado."
+      - "<warning> 4) Ao usar, jogar ou modificar o NetworksExpansion, você concorda com estas declarações."
+      - "<passive> 5) Os desenvolvedores podem alterar ou encerrar estas declarações a qualquer momento."
+      - "<passive> 6) Em caso de divergência entre idiomas, vale a versão original em chinês."
 
   NTW_EXPANSION_WORKBENCH:
     name: "Bancada de Expansão de Rede"
