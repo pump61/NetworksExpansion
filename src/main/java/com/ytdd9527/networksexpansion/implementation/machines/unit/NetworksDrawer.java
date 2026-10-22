@@ -119,6 +119,14 @@ public class NetworksDrawer extends SpecialSlimefunItem implements DistinctiveIt
             @Override
             public void newInstance(@NotNull BlockMenu menu, @NotNull Block b) {
                 Location l = b.getLocation();
+                // Slimefun builds the menu only after marking the data loaded, then runs this a tick
+                // later. If the data is unloaded by then, the chunk was already unloaded again and
+                // this menu is stale: reading it throws "Unable to access unloaded data" (seen ~2x/s
+                // for a chunk flickering in and out). Skip it; the next chunk load builds a new menu.
+                SlimefunBlockData current = StorageCacheUtils.getBlock(l);
+                if (current != null && !current.isDataLoaded()) {
+                    return;
+                }
                 requestData(l, getContainerId(l));
                 // Restore mode
                 SlimefunBlockData blockData = StorageCacheUtils.getBlock(l);
